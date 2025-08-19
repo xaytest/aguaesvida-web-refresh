@@ -130,7 +130,7 @@ const ProductDetail = () => {
             Inicio
           </Link>
           <span>/</span>
-          <Link to="/#products" className="hover:text-primary transition-colors">
+          <Link to="/productos" className="hover:text-primary transition-colors">
             Productos
           </Link>
           <span>/</span>
@@ -241,7 +241,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Back Button */}
-            <Link to="/#products">
+            <Link to="/productos">
               <Button variant="ghost" className="btn-crystal">
                 <ChevronLeft className="w-4 h-4 mr-2" />
                 Volver a productos

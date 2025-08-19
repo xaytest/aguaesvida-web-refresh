@@ -118,9 +118,11 @@ const ProductGrid = () => {
         </div>
 
         <div className="text-center mt-16">
-          <Button size="lg" className="btn-ocean">
-            Ver Todos los Productos
-          </Button>
+          <Link to="/productos">
+            <Button size="lg" className="btn-ocean">
+              Ver Todos los Productos
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
