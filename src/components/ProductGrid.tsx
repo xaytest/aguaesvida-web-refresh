@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Info, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import blueAmbient from "@/assets/blue-filter-ambient.jpg";
 import bluePure from "@/assets/blue-filter-pure.jpg";
@@ -13,6 +14,7 @@ const ProductGrid = () => {
     {
       id: 1,
       name: "Blue Ambient",
+      slug: "blue-ambient",
       image: blueAmbient,
       description: "Sistema de filtración ambiental para uso doméstico diario",
       features: ["Filtración de 5 etapas", "Fácil instalación", "Mantenimiento simple"],
@@ -22,6 +24,7 @@ const ProductGrid = () => {
     {
       id: 2,
       name: "Blue Pure",
+      slug: "blue-pure",
       image: bluePure,
       description: "Purificación avanzada para máxima calidad del agua",
       features: ["Tecnología de ósmosis inversa", "Eliminación de contaminantes", "Agua ultra pura"],
@@ -31,6 +34,7 @@ const ProductGrid = () => {
     {
       id: 3,
       name: "Blue Café",
+      slug: "blue-cafe",
       image: blueCafe,
       description: "Especializado para preparación de café y bebidas calientes",
       features: ["Optimizado para café", "Control de minerales", "Sabor perfecto"],
@@ -40,6 +44,7 @@ const ProductGrid = () => {
     {
       id: 4,
       name: "Blue Sparkling",
+      slug: "blue-sparkling",
       image: blueSparkling,
       description: "Agua con gas fresca y purificada al instante",
       features: ["Agua carbonatada", "Sistema integrado", "Burbujas perfectas"],
@@ -100,10 +105,12 @@ const ProductGrid = () => {
                   <span className="font-semibold text-lg text-primary">
                     {product.price}
                   </span>
-                  <Button size="sm" variant="ghost" className="btn-crystal">
-                    <Info className="w-4 h-4 mr-2" />
-                    Más Info
-                  </Button>
+                  <Link to={`/producto/${product.slug}`}>
+                    <Button size="sm" variant="ghost" className="btn-crystal">
+                      <Info className="w-4 h-4 mr-2" />
+                      Más Info
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
