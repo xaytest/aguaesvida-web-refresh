@@ -1,4 +1,11 @@
-import { Droplets, Facebook, Instagram, Twitter, Mail } from "lucide-react";
+import {
+  Droplets,
+  Facebook,
+  Instagram,
+  Twitter,
+  Mail,
+  Twitch,
+} from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -7,21 +14,21 @@ const Footer = () => {
     {
       title: "Productos",
       links: [
-        { name: "Blue Ambient", href: "#" },
-        { name: "Blue Pure", href: "#" },
-        { name: "Blue Café", href: "#" },
-        { name: "Blue Sparkling", href: "#" },
-        { name: "Blue Infinity", href: "#" }
-      ]
+        { name: "Blue Ambient", href: "/producto/blue-ambient" },
+        { name: "Blue Pure", href: "/producto/blue-pure" },
+        { name: "Blue Café", href: "/producto/blue-cafe" },
+        { name: "Blue Sparkling", href: "/producto/blue-sparkling" },
+        { name: "Blue Infinity", href: "/producto/blue-infinity" },
+      ],
     },
     {
       title: "Empresa",
       links: [
-        { name: "Sobre Nosotros", href: "#about" },
+        { name: "Sobre Nosotros", href: "/#about" },
         { name: "Nuestro Equipo", href: "#" },
         { name: "Certificaciones", href: "#" },
-        { name: "Testimonios", href: "#" }
-      ]
+        { name: "Testimonios", href: "#" },
+      ],
     },
     {
       title: "Soporte",
@@ -29,9 +36,9 @@ const Footer = () => {
         { name: "Centro de Ayuda", href: "#" },
         { name: "Instalación", href: "#" },
         { name: "Mantenimiento", href: "#" },
-        { name: "Garantías", href: "#" }
-      ]
-    }
+        { name: "Garantías", href: "#" },
+      ],
+    },
   ];
 
   return (
@@ -42,35 +49,31 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <Droplets className="w-10 h-10" />
-              <span className="font-display font-bold text-2xl">Agua es Vida</span>
+              <span className="font-display font-bold text-2xl">
+                Agua es Vida
+              </span>
             </div>
             <p className="text-white/90 text-lg mb-6 leading-relaxed max-w-md">
-              Filtra, toma y disfruta. Transformando vidas a través de agua pura 
+              Filtra, toma y disfruta. Transformando vidas a través de agua pura
               y sistemas de filtración de alta calidad.
             </p>
-            
+
             {/* Social Media */}
             <div className="flex space-x-4">
-              <a 
-                href="#" 
+              <a
+                href="https://www.facebook.com/aguaesvidapy/"
                 className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors duration-200"
               >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a 
-                href="https://www.instagram.com/aguaesvida_py/" 
+              <a
+                href="https://www.instagram.com/aguaesvida_py/"
                 className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors duration-200"
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors duration-200"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a 
-                href="mailto:info@aguaesvida.com.py" 
+              <a
+                href="mailto:info@aguaesvida.com.py"
                 className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors duration-200"
               >
                 <Mail className="w-5 h-5" />
@@ -85,7 +88,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a 
+                    <a
                       href={link.href}
                       className="text-white/80 hover:text-white transition-colors duration-200"
                     >
@@ -104,10 +107,16 @@ const Footer = () => {
             © {currentYear} Agua es Vida. Todos los derechos reservados.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-white/80 hover:text-white text-sm transition-colors">
+            <a
+              href="#"
+              className="text-white/80 hover:text-white text-sm transition-colors"
+            >
               Política de Privacidad
             </a>
-            <a href="#" className="text-white/80 hover:text-white text-sm transition-colors">
+            <a
+              href="#"
+              className="text-white/80 hover:text-white text-sm transition-colors"
+            >
               Términos de Uso
             </a>
           </div>

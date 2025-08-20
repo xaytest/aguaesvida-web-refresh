@@ -26,7 +26,7 @@ const Products = () => {
         "Mantenimiento simple",
         "Autolimpieza automática",
       ],
-      price: "Consultar precio",
+      //price: "Consultar precio",
       popular: false,
     },
     {
@@ -42,7 +42,7 @@ const Products = () => {
         "Agua ultra pura",
         "Monitor digital de calidad",
       ],
-      price: "Consultar precio",
+      //price: "Consultar precio",
       popular: true,
     },
     {
@@ -58,7 +58,7 @@ const Products = () => {
         "Sabor perfecto",
         "Compatible con máquinas espresso",
       ],
-      price: "Consultar precio",
+      //price: "Consultar precio",
       popular: false,
     },
     {
@@ -74,7 +74,7 @@ const Products = () => {
         "Burbujas perfectas",
         "Control de nivel de gas",
       ],
-      price: "Consultar precio",
+      //price: "Consultar precio",
       popular: false,
     },
     {
@@ -90,7 +90,7 @@ const Products = () => {
         "Burbujas perfectas",
         "Control de nivel de gas",
       ],
-      price: "Consultar precio",
+      //price: "Consultar precio",
       popular: false,
     },
   ];

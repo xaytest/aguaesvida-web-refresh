@@ -276,21 +276,24 @@ const ProductDetail = () => {
             </div>
 
             {/* Contact Button */}
-            <div className="bg-primary/5 p-6 rounded-lg border border-primary/10">
+            <div className="grid grid-col-1 lg:grid-cols-2 gap-6 bg-primary/5 p-6 rounded-lg border border-primary/10">
+              {/* Back Button */}
+              <Link to="/productos">
+                <Button
+                  size="lg"
+                  variant="ghost"
+                  className="btn-crystal w-full"
+                >
+                  <ChevronLeft className="w-full" />
+                  Volver a productos
+                </Button>
+              </Link>
               <a href="/#contact">
                 <Button size="lg" className="btn-ocean w-full">
                   Contactarnos
                 </Button>
               </a>
             </div>
-
-            {/* Back Button */}
-            <Link to="/productos">
-              <Button variant="ghost" className="btn-crystal">
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Volver a productos
-              </Button>
-            </Link>
           </div>
         </div>
       </main>
