@@ -1,41 +1,40 @@
+import { useState, useEffect } from "react";
 import { Instagram, Heart, MessageCircle, Send } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+
+interface InstagramPost {
+  id: string;
+  image_url: string;
+  caption: string;
+  likes: number;
+  comments: number;
+  time_ago: string;
+}
 
 const InstagramFeed = () => {
-  const instagramPosts = [
-    {
-      id: 1,
-      image: "/src/assets/blue-filter-pure.jpg",
-      caption: "💧 Agua pura para toda la familia. Conocé nuestra línea Blue de filtros de agua #AguaEsVida #AguaPura",
-      likes: 127,
-      comments: 23,
-      timeAgo: "2h"
-    },
-    {
-      id: 2,
-      image: "/src/assets/blue-filter-cafe.jpg", 
-      caption: "☕ El mejor café comienza con agua de calidad. Blue Café para los amantes del buen café #BlueSeriesFilter",
-      likes: 89,
-      comments: 15,
-      timeAgo: "1d"
-    },
-    {
-      id: 3,
-      image: "/src/assets/blue-filter-ambient.jpg",
-      caption: "🏠 Transformá tu hogar con agua cristalina. Blue Ambient te acompaña en cada momento #VidaSaludable",
-      likes: 156,
-      comments: 31,
-      timeAgo: "2d"
-    },
-    {
-      id: 4,
-      image: "/src/assets/blue-filter-sparkling.jpg",
-      caption: "✨ Agua con gas natural en tu casa. Blue Sparkling para los momentos especiales #AguaConGas #Lifestyle",
-      likes: 203,
-      comments: 42,
-      timeAgo: "3d"
-    }
-  ];
+  const [instagramPosts, setInstagramPosts] = useState<InstagramPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('instagram_posts')
+          .select('*')
+          .order('display_order', { ascending: true });
+
+        if (error) throw error;
+        setInstagramPosts(data || []);
+      } catch (error) {
+        console.error('Error fetching Instagram posts:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-secondary/20">
@@ -62,11 +61,23 @@ const InstagramFeed = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {instagramPosts.map((post) => (
+          {isLoading ? (
+            // Loading skeleton
+            Array.from({ length: 4 }).map((_, i) => (
+              <Card key={i} className="animate-pulse">
+                <div className="h-64 bg-muted"></div>
+                <div className="p-4 space-y-2">
+                  <div className="h-4 bg-muted rounded w-3/4"></div>
+                  <div className="h-4 bg-muted rounded w-1/2"></div>
+                </div>
+              </Card>
+            ))
+          ) : (
+            instagramPosts.map((post) => (
             <Card key={post.id} className="group overflow-hidden hover:shadow-glow transition-all duration-500 bg-card/50 backdrop-blur-sm border border-primary/20">
               <div className="relative overflow-hidden">
                 <img 
-                  src={post.image} 
+                  src={post.image_url} 
                   alt="Instagram post"
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -94,11 +105,12 @@ const InstagramFeed = () => {
                       <span>{post.comments}</span>
                     </div>
                   </div>
-                  <span>{post.timeAgo}</span>
+                  <span>{post.time_ago}</span>
                 </div>
               </div>
             </Card>
-          ))}
+            ))
+          )}
         </div>
 
         <div className="text-center mt-12">

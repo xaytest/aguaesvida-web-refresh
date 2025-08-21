@@ -1,81 +1,62 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Info, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
-import blueAmbient from "@/assets/blue-filter-ambient.jpg";
-import bluePure from "@/assets/blue-filter-pure.jpg";
-import blueCafe from "@/assets/blue-filter-cafe.jpg";
-import blueSparkling from "@/assets/blue-filter-sparkling.jpg";
+interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  features: string[];
+  price: string;
+  popular: boolean;
+  image_url: string;
+}
 
 const ProductGrid = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Blue Ambient",
-      slug: "blue-ambient",
-      image: blueAmbient,
-      description: "Sistema de filtración ambiental para uso doméstico diario",
-      features: [
-        "Filtración de 5 etapas",
-        "Fácil instalación",
-        "Mantenimiento simple",
-      ],
-      //price: "Consultar precio",
-      popular: false,
-    },
-    {
-      id: 2,
-      name: "Blue Pure",
-      slug: "blue-pure",
-      image: bluePure,
-      description: "Purificación avanzada para máxima calidad del agua",
-      features: [
-        "Tecnología de ósmosis inversa",
-        "Eliminación de contaminantes",
-        "Agua ultra pura",
-      ],
-      //price: "Consultar precio",
-      popular: false,
-    },
-    {
-      id: 3,
-      name: "Blue Café",
-      slug: "blue-cafe",
-      image: blueCafe,
-      description: "Especializado para preparación de café y bebidas calientes",
-      features: [
-        "Optimizado para café",
-        "Control de minerales",
-        "Sabor perfecto",
-      ],
-      //price: "Consultar precio",
-      popular: false,
-    },
-    /*
-    {
-      id: 4,
-      name: "Blue Sparkling",
-      slug: "blue-sparkling",
-      image: blueSparkling,
-      description: "Agua con gas fresca y purificada al instante",
-      features: ["Agua carbonatada", "Sistema integrado", "Burbujas perfectas"],
-      //price: "Consultar precio",
-      popular: true,
-    },
-    */
-    {
-      id: 5,
-      name: "Blue Infinity",
-      slug: "blue-infinity",
-      image: blueSparkling,
-      description: "Agua con gas fresca y purificada al instante",
-      features: ["Agua carbonatada", "Sistema integrado", "Burbujas perfectas"],
-      //price: "Consultar precio",
-      popular: true,
-    },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
+        setProducts(data || []);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section id="products" className="py-20 bg-gradient-crystal">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Serie Blue
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Cargando productos...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="products" className="py-20 bg-gradient-crystal">
@@ -104,7 +85,7 @@ const ProductGrid = () => {
                   </Badge>
                 )}
                 <img
-                  src={product.image}
+                  src={product.image_url}
                   alt={product.name}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -133,7 +114,7 @@ const ProductGrid = () => {
 
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-lg text-primary">
-                    Consultar precio
+                    {product.price}
                   </span>
                   <Link to={`/producto/${product.slug}`}>
                     <Button size="sm" variant="ghost" className="btn-crystal">
