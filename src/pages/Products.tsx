@@ -163,7 +163,7 @@ const Products = () => {
 
                 <div className="space-y-3">
                   <span className="font-semibold text-lg text-primary block">
-                    {product.price}
+                    Consultar precio
                   </span>
                   <Link to={`/producto/${product.slug}`} className="block">
                     <Button className="btn-ocean w-full">

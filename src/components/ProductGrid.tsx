@@ -133,7 +133,7 @@ const ProductGrid = () => {
 
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-lg text-primary">
-                    {product.price}
+                    Consultar precio
                   </span>
                   <Link to={`/producto/${product.slug}`}>
                     <Button size="sm" variant="ghost" className="btn-crystal">
