@@ -48,39 +48,48 @@ const ProductGrid = () => {
 
   if (isLoading) {
     return (
-      <section id="products" className="py-20 bg-gradient-crystal">
+      <section id="products" className={isProductsPage ? "" : "py-20 bg-gradient-crystal"}>
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Serie Blue
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Cargando productos...
-            </p>
-          </div>
+          {!isProductsPage && (
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+                Serie Blue
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Cargando productos...
+              </p>
+            </div>
+          )}
+          {isProductsPage && (
+            <div className="text-center py-8">
+              <p className="text-xl text-muted-foreground">Cargando productos...</p>
+            </div>
+          )}
         </div>
       </section>
     );
   }
 
   return (
-    <section id="products" className="py-20 bg-gradient-crystal">
+    <section id="products" className={isProductsPage ? "" : "py-20 bg-gradient-crystal"}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Serie Blue
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Descubre nuestra línea completa de sistemas de filtración diseñados
-            para cada necesidad y estilo de vida.
-          </p>
-        </div>
+        {!isProductsPage && (
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Serie Blue
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Descubre nuestra línea completa de sistemas de filtración diseñados
+              para cada necesidad y estilo de vida.
+            </p>
+          </div>
+        )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className={`grid grid-cols-1 ${isProductsPage ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'} gap-8`}>
           {products.map((product) => (
             <Card
               key={product.id}
-              className="group hover:shadow-water transition-all duration-300 hover:-translate-y-2 overflow-hidden border-0 shadow-crystal"
+              className="group hover:shadow-water transition-all duration-300 hover:-translate-y-2 overflow-hidden border-0 shadow-crystal flex flex-col"
             >
               <div className="relative overflow-hidden">
                 {product.popular && (
@@ -97,7 +106,7 @@ const ProductGrid = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex flex-col h-full">
                 <h3 className="font-display text-2xl font-semibold text-foreground mb-3">
                   {product.name}
                 </h3>
@@ -105,7 +114,7 @@ const ProductGrid = () => {
                   {product.description}
                 </p>
 
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-2 mb-6 flex-grow">
                   {product.features.map((feature, index) => (
                     <li
                       key={index}
@@ -117,12 +126,12 @@ const ProductGrid = () => {
                   ))}
                 </ul>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-auto">
                   <span className="font-semibold text-lg text-primary">
                     {product.price}
                   </span>
                   <Link to={`/producto/${product.slug}`}>
-                    <Button size="sm" variant="ghost" className="btn-crystal">
+                    <Button size="sm" variant="ghost" className="btn-crystal px-6">
                       <Info className="w-4 h-4 mr-2" />
                       Más Info
                     </Button>
