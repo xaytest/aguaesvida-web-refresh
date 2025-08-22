@@ -1,20 +1,34 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart3, Package, Instagram, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { BarChart3, Package, Instagram, Shield, Home } from "lucide-react";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
 import AdminProducts from "@/components/admin/AdminProducts";
 import AdminInstagram from "@/components/admin/AdminInstagram";
 
 const Admin = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gradient-crystal">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-3 mb-8">
-          <Shield className="w-8 h-8 text-primary" />
-          <h1 className="text-4xl font-display font-bold bg-gradient-ocean bg-clip-text text-transparent">
-            Panel de Administración
-          </h1>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <Shield className="w-8 h-8 text-primary" />
+            <h1 className="text-4xl font-display font-bold bg-gradient-ocean bg-clip-text text-transparent">
+              Panel de Administración
+            </h1>
+          </div>
+          <Button 
+            onClick={() => navigate('/')} 
+            variant="outline" 
+            className="flex items-center gap-2"
+          >
+            <Home className="w-4 h-4" />
+            Volver al Inicio
+          </Button>
         </div>
 
         <Tabs defaultValue="analytics" className="space-y-6">
