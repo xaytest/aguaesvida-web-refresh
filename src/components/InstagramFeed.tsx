@@ -10,6 +10,7 @@ interface InstagramPost {
   likes: number;
   comments: number;
   time_ago: string;
+  show_on_landing: boolean;
 }
 
 const InstagramFeed = () => {
@@ -22,6 +23,7 @@ const InstagramFeed = () => {
         const { data, error } = await supabase
           .from('instagram_posts')
           .select('*')
+          .eq('show_on_landing', true)
           .order('display_order', { ascending: true });
 
         if (error) throw error;

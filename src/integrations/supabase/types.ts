@@ -23,6 +23,7 @@ export type Database = {
           id: string
           image_url: string
           likes: number | null
+          show_on_landing: boolean | null
           time_ago: string | null
           updated_at: string
         }
@@ -34,6 +35,7 @@ export type Database = {
           id?: string
           image_url: string
           likes?: number | null
+          show_on_landing?: boolean | null
           time_ago?: string | null
           updated_at?: string
         }
@@ -45,6 +47,7 @@ export type Database = {
           id?: string
           image_url?: string
           likes?: number | null
+          show_on_landing?: boolean | null
           time_ago?: string | null
           updated_at?: string
         }
@@ -60,6 +63,8 @@ export type Database = {
           name: string
           popular: boolean | null
           price: string | null
+          show_on_landing: boolean | null
+          show_on_products_page: boolean | null
           slug: string
           updated_at: string
         }
@@ -72,6 +77,8 @@ export type Database = {
           name: string
           popular?: boolean | null
           price?: string | null
+          show_on_landing?: boolean | null
+          show_on_products_page?: boolean | null
           slug: string
           updated_at?: string
         }
@@ -84,6 +91,8 @@ export type Database = {
           name?: string
           popular?: boolean | null
           price?: string | null
+          show_on_landing?: boolean | null
+          show_on_products_page?: boolean | null
           slug?: string
           updated_at?: string
         }

@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Info, Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Product {
@@ -15,11 +15,15 @@ interface Product {
   price: string;
   popular: boolean;
   image_url: string;
+  show_on_landing: boolean;
+  show_on_products_page: boolean;
 }
 
 const ProductGrid = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const isProductsPage = location.pathname === '/productos';
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,6 +31,7 @@ const ProductGrid = () => {
         const { data, error } = await supabase
           .from('products')
           .select('*')
+          .eq(isProductsPage ? 'show_on_products_page' : 'show_on_landing', true)
           .order('created_at', { ascending: true });
 
         if (error) throw error;
@@ -39,7 +44,7 @@ const ProductGrid = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [isProductsPage]);
 
   if (isLoading) {
     return (
@@ -128,13 +133,15 @@ const ProductGrid = () => {
           ))}
         </div>
 
-        <div className="text-center mt-16">
-          <Link to="/productos">
-            <Button size="lg" className="btn-ocean">
-              Ver Todos los Productos
-            </Button>
-          </Link>
-        </div>
+        {!isProductsPage && (
+          <div className="text-center mt-16">
+            <Link to="/productos">
+              <Button size="lg" className="btn-ocean">
+                Ver Todos los Productos
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

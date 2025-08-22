@@ -20,6 +20,8 @@ interface Product {
   price: string;
   popular: boolean;
   image_url: string;
+  show_on_landing: boolean;
+  show_on_products_page: boolean;
 }
 
 const AdminProducts = () => {
@@ -36,7 +38,9 @@ const AdminProducts = () => {
     features: "",
     price: "Consultar precio",
     popular: false,
-    image_url: ""
+    image_url: "",
+    show_on_landing: true,
+    show_on_products_page: true
   });
 
   useEffect(() => {
@@ -73,7 +77,9 @@ const AdminProducts = () => {
       features: formData.features.split('\n').filter(f => f.trim()),
       price: formData.price,
       popular: formData.popular,
-      image_url: formData.image_url
+      image_url: formData.image_url,
+      show_on_landing: formData.show_on_landing,
+      show_on_products_page: formData.show_on_products_page
     };
 
     try {
@@ -147,7 +153,9 @@ const AdminProducts = () => {
       features: "",
       price: "Consultar precio",
       popular: false,
-      image_url: ""
+      image_url: "",
+      show_on_landing: true,
+      show_on_products_page: true
     });
     setEditingProduct(null);
   };
@@ -161,7 +169,9 @@ const AdminProducts = () => {
       features: product.features.join('\n'),
       price: product.price,
       popular: product.popular,
-      image_url: product.image_url || ""
+      image_url: product.image_url || "",
+      show_on_landing: product.show_on_landing,
+      show_on_products_page: product.show_on_products_page
     });
     setIsDialogOpen(true);
   };
@@ -247,13 +257,31 @@ const AdminProducts = () => {
                   />
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="popular"
-                  checked={formData.popular}
-                  onCheckedChange={(checked) => setFormData({ ...formData, popular: checked })}
-                />
-                <Label htmlFor="popular">Producto popular</Label>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="popular"
+                    checked={formData.popular}
+                    onCheckedChange={(checked) => setFormData({ ...formData, popular: checked })}
+                  />
+                  <Label htmlFor="popular">Producto popular</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="show_on_landing"
+                    checked={formData.show_on_landing}
+                    onCheckedChange={(checked) => setFormData({ ...formData, show_on_landing: checked })}
+                  />
+                  <Label htmlFor="show_on_landing">Mostrar en página de inicio</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="show_on_products_page"
+                    checked={formData.show_on_products_page}
+                    onCheckedChange={(checked) => setFormData({ ...formData, show_on_products_page: checked })}
+                  />
+                  <Label htmlFor="show_on_products_page">Mostrar en página de productos</Label>
+                </div>
               </div>
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>

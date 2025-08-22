@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Plus, Edit, Trash2, Instagram, Heart, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -17,6 +18,7 @@ interface InstagramPost {
   comments: number;
   time_ago: string;
   display_order: number;
+  show_on_landing: boolean;
 }
 
 const AdminInstagram = () => {
@@ -32,7 +34,8 @@ const AdminInstagram = () => {
     likes: 0,
     comments: 0,
     time_ago: "1h",
-    display_order: 0
+    display_order: 0,
+    show_on_landing: true
   });
 
   useEffect(() => {
@@ -132,7 +135,8 @@ const AdminInstagram = () => {
       likes: 0,
       comments: 0,
       time_ago: "1h",
-      display_order: posts.length + 1
+      display_order: posts.length + 1,
+      show_on_landing: true
     });
     setEditingPost(null);
   };
@@ -145,7 +149,8 @@ const AdminInstagram = () => {
       likes: post.likes,
       comments: post.comments,
       time_ago: post.time_ago,
-      display_order: post.display_order
+      display_order: post.display_order,
+      show_on_landing: post.show_on_landing
     });
     setIsDialogOpen(true);
   };
@@ -224,14 +229,24 @@ const AdminInstagram = () => {
                   />
                 </div>
               </div>
-              <div>
-                <Label htmlFor="display_order">Orden de visualización</Label>
-                <Input
-                  id="display_order"
-                  type="number"
-                  value={formData.display_order}
-                  onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="display_order">Orden de visualización</Label>
+                  <Input
+                    id="display_order"
+                    type="number"
+                    value={formData.display_order}
+                    onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+                <div className="flex items-center space-x-2 pt-6">
+                  <Switch
+                    id="show_on_landing"
+                    checked={formData.show_on_landing}
+                    onCheckedChange={(checked) => setFormData({ ...formData, show_on_landing: checked })}
+                  />
+                  <Label htmlFor="show_on_landing">Mostrar en página de inicio</Label>
+                </div>
               </div>
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
